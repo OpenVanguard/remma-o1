@@ -60,5 +60,6 @@ We welcome contributions to remma-o1! Whether it's reporting bugs, suggesting fe
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
 ---
 For updates and discussions, follow [OpenVanguard](https://github.com/OpenVanguard).
