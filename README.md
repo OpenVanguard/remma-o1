@@ -1,4 +1,4 @@
-# Remma-O1
+# remma-O1
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
@@ -6,7 +6,7 @@
 [![Releases](https://img.shields.io/badge/releases-page-blue.svg)](https://github.com/OpenVanguard/remma-o1/releases/)
 
 ## Overview
-**Remma-O1** is an open-source Large Language Model (LLM) designed for collaboration, and accurate natural language processing. This project aims to empower developers and researchers by providing:
+**remma-O1** is an open-source Large Language Model (LLM) designed for collaboration, and accurate natural language processing. This project aims to empower developers and researchers by providing:
 
 - Versatile and context-aware AI capabilities.
 - A robust, adaptable foundation for building intelligent systems.
