@@ -43,7 +43,7 @@ Ensure you have the following installed:
 ### Usage
 Import the model and start using it in your Python projects:
 ```python
-from remma_o1 import Remma
+from openvangaurd import Remma
 
 model = Remma.load()
 response = model.generate("What is open source?")
