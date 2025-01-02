@@ -1,4 +1,4 @@
-# remma-O1
+# remma-o1
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
@@ -6,7 +6,7 @@
 [![Releases](https://img.shields.io/badge/releases-page-blue.svg)](https://github.com/OpenVanguard/remma-o1/releases/)
 
 ## Overview
-**remma-O1** is an open-source Large Language Model (LLM) designed for collaboration, and accurate natural language processing. This project aims to empower developers and researchers by providing:
+**remma-o1** is an open-source Large Language Model (LLM) designed for collaboration, and accurate natural language processing. This project aims to empower developers and researchers by providing:
 
 - Versatile and context-aware AI capabilities.
 - A robust, adaptable foundation for building intelligent systems.
@@ -27,8 +27,8 @@ Ensure you have the following installed:
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/OpenVanguard/remma-o1.git
-   cd remma-o1
+   git clone https://github.com/OpenVanguard/.git
+   cd 
    ```
 2. Install dependencies:
    ```bash
@@ -51,7 +51,7 @@ print(response)
 ```
 
 ## Contributing
-We welcome contributions to Remma-O1! Whether it's reporting bugs, suggesting features, or submitting pull requests, your input helps improve this project. Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines.
+We welcome contributions to remma-o1! Whether it's reporting bugs, suggesting features, or submitting pull requests, your input helps improve this project. Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines.
 
 ## Roadmap
 - **Fine-Tuning Support**: Enable fine-tuning for domain-specific tasks.
