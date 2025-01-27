@@ -1,0 +1,10 @@
+# Ignore data and models
+data/
+models/
+experiments/
+
+# Python/ML specific
+/venv
+
+# IDE files
+.vscode/
