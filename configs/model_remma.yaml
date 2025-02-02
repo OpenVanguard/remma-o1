@@ -1,0 +1,12 @@
+model_name: "remma-o1.v1.0"
+vocab_size: 50000
+embed_size: 768
+num_layers: 12
+num_heads: 12
+ff_dim: 3072
+block_size: 1024
+dropout: 0.1
+batch_size: 32
+learning_rate: 3e-4
+total_steps: 100000
+checkpoint_steps: 10000
