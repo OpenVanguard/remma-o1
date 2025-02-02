@@ -1,0 +1,9 @@
+**/__pycache__
+**/.git
+**/.venv
+**/data
+**/models
+**/notebooks/*.ipynb
+**/.vscode
+**/.idea
+**/*.egg-info
