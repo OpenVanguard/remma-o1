@@ -11,7 +11,7 @@ Key improvements made:
     Error handling for missing dependencies
     Batch size and workers configuration
 '''
-
+# src/training/train_custom.py
 import os
 import yaml
 import torch
@@ -22,94 +22,171 @@ from datasets import load_from_disk
 from src.modeling import build_model
 from src.training.utils.checkpoint import save_checkpoint
 from torch.cuda.amp import GradScaler, autocast
+from torch.optim.lr_scheduler import CosineAnnealingLR
 
-class TextDataset(Dataset):
-    def __init__(self, tokenized_data, block_size=1024):
+class MultiDomainDataset(Dataset):
+    def __init__(self, tokenized_data, block_size=2048):
         self.data = tokenized_data
         self.block_size = block_size
+        self.domain_weights = {
+            'c4': 0.7,
+            'wikipedia': 0.2,
+            'math': 0.1
+        }
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
-        chunk = self.data[idx]["input_ids"][:self.block_size]
+        example = self.data[idx]
+        chunk = example["input_ids"][:self.block_size]
+        
+        # Domain-aware processing
+        domain = example.get("domain", "c4")
+        loss_weight = self.domain_weights.get(domain, 1.0)
+        
         x = torch.tensor(chunk[:-1], dtype=torch.long)
         y = torch.tensor(chunk[1:], dtype=torch.long)
-        return x, y
+        
+        return x, y, torch.tensor(loss_weight)
 
 def main():
     # Load configuration
     with open("configs/model_remma.yaml") as f:
         config = yaml.safe_load(f)
     
-    # Initialize model and move to device
+    # Initialize model
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = build_model(config).to(device)
     
-    # Load tokenized dataset
-    tokenized_data = load_from_disk("data/processed/tokenized_c4")
-    dataset = TextDataset(tokenized_data["train"], config["block_size"])
+    # Load combined dataset
+    try:
+        dataset = load_from_disk("data/processed/final_dataset")
+    except FileNotFoundError:
+        raise RuntimeError("Dataset not found. Run data processing pipeline first.")
     
-    # Create dataloader
+    # Create dataloader with domain-aware sampling
+    train_dataset = MultiDomainDataset(dataset["train"], config["block_size"])
     dataloader = DataLoader(
-        dataset,
+        train_dataset,
         batch_size=config.get("batch_size", 32),
         shuffle=True,
-        num_workers=os.cpu_count() // 2
+        num_workers=os.cpu_count() // 2,
+        pin_memory=True
     )
     
-    # Initialize optimizer and scaler
-    optimizer = torch.optim.AdamW(model.parameters(), lr=config.get("learning_rate", 3e-4))
+    # Optimizer and scheduler
+    optimizer = torch.optim.AdamW(
+        model.parameters(),
+        lr=config.get("learning_rate", 3e-4),
+        weight_decay=config.get("weight_decay", 0.1)
+    )
+    scheduler = CosineAnnealingLR(
+        optimizer,
+        T_max=config.get("total_steps", 100_000),
+        eta_min=config.get("min_lr", 1e-5)
+    )
     scaler = GradScaler()
     
-    # Training loop
+    # Training setup
     global_step = 0
     model.train()
     
+    # Initialize WandB
+    wandb_available = False
     try:
         import wandb
         wandb.init(project="remma-training", config=config)
+        wandb_available = True
+        wandb.watch(model, log="all")
     except ImportError:
         print("Wandb not installed, skipping logging")
     
+    # Progress tracking
     progress_bar = tqdm(total=config.get("total_steps", 100_000), desc="Training")
     
-    while global_step < config.get("total_steps", 100_000):
-        for x, y in dataloader:
+    # Mixed-precision training loop
+    try:
+        while global_step < config.get("total_steps", 100_000):
+            for x, y, weights in dataloader:
+                x, y = x.to(device, non_blocking=True), y.to(device, non_blocking=True)
+                weights = weights.to(device)
+                
+                optimizer.zero_grad(set_to_none=True)
+                
+                with autocast(dtype=torch.bfloat16):
+                    logits, loss = model(x, targets=y)
+                    weighted_loss = (loss * weights).mean()
+                
+                scaler.scale(weighted_loss).backward()
+                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+                scaler.step(optimizer)
+                scaler.update()
+                scheduler.step()
+                
+                # Update tracking
+                global_step += 1
+                progress_bar.update(1)
+                progress_bar.set_postfix({
+                    "loss": weighted_loss.item(),
+                    "lr": optimizer.param_groups[0]['lr']
+                })
+                
+                # Log metrics
+                if wandb_available:
+                    wandb.log({
+                        "loss": weighted_loss.item(),
+                        "learning_rate": optimizer.param_groups[0]['lr'],
+                        "step": global_step
+                    })
+                
+                # Checkpointing
+                if global_step % config.get("checkpoint_steps", 10_000) == 0:
+                    save_checkpoint(
+                        model=model,
+                        optimizer=optimizer,
+                        scheduler=scheduler,
+                        step=global_step,
+                        config=config
+                    )
+                    
+                    # Validation (optional)
+                    if config.get("run_validation", False):
+                        validation_loss = run_validation(model, device, config)
+                        if wandb_available:
+                            wandb.log({"validation_loss": validation_loss})
+                
+                if global_step >= config.get("total_steps", 100_000):
+                    break
+
+    except KeyboardInterrupt:
+        print("\nTraining interrupted. Saving final checkpoint...")
+        save_checkpoint(model, optimizer, scheduler, global_step, config)
+    
+    finally:
+        progress_bar.close()
+        print("Training completed!")
+
+def run_validation(model, device, config):
+    """Optional validation loop"""
+    model.eval()
+    valid_dataset = load_from_disk("data/processed/validation_dataset")
+    valid_loader = DataLoader(
+        MultiDomainDataset(valid_dataset),
+        batch_size=config.get("val_batch_size", 16),
+        num_workers=os.cpu_count() // 2
+    )
+    
+    total_loss = 0.0
+    with torch.no_grad():
+        for x, y, _ in valid_loader:
             x, y = x.to(device), y.to(device)
-            
-            optimizer.zero_grad()
-            
             with autocast(dtype=torch.bfloat16):
                 _, loss = model(x, targets=y)
-            
-            scaler.scale(loss).backward()
-            scaler.step(optimizer)
-            scaler.update()
-            
-            # Update progress
-            global_step += 1
-            progress_bar.update(1)
-            progress_bar.set_postfix({"loss": loss.item()})
-            
-            # Save checkpoint
-            if global_step % config.get("checkpoint_steps", 10_000) == 0:
-                save_checkpoint(
-                    model=model,
-                    optimizer=optimizer,
-                    step=global_step,
-                    config=config
-                )
-            
-            # Log to wandb
-            if "wandb" in locals():
-                wandb.log({"loss": loss.item()}, step=global_step)
-                
-            if global_step >= config.get("total_steps", 100_000):
-                break
-
-    progress_bar.close()
-    print("Training completed!")
+            total_loss += loss.item()
+    
+    model.train()
+    return total_loss / len(valid_loader)
 
 if __name__ == "__main__":
     main()
