@@ -1,4 +1,9 @@
-# src/data_processing/retokenize_all.py
+'''
+Dont use now for future use
+remma-o1-v1.0
+first train 
+c4, maths, wikipedia
+'''
 from tokenizers import Tokenizer
 from datasets import load_from_disk
 
