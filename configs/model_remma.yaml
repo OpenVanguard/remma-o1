@@ -1,9 +1,22 @@
+model:
+  # Added model architecture parameters
+  vocab_size: 500017  # UPDATE THIS WITH ACTUAL VOCAB SIZE FROM TOKENIZER
+  embed_size: 1024
+  num_layers: 12
+  num_heads: 8
+  ff_dim: 4096
+  block_size: 2048
+  dropout: 0.1
+
 training:
-  total_steps: 10000000
+  # Consolidated training parameters
+  total_steps: 500017
   batch_size: 32
   learning_rate: 3e-4
   min_lr: 1e-5
   weight_decay: 0.1
+  warmup_steps: 2000
+  math_weight: 1.5
   checkpoint_steps: 10000
   val_batch_size: 16
   run_validation: true
@@ -11,3 +24,8 @@ training:
     c4: 0.7
     wikipedia: 0.2
     math: 0.1
+
+data:
+  # Add dataset paths if needed
+  train_path: "data/processed/final_dataset"
+  val_path: "data/processed/validation_dataset"
