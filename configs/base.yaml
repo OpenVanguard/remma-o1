@@ -1,4 +1,0 @@
-# configs/base.yaml
-batch_size: 128
-learning_rate: 3e-4
-num_epochs: 10
