@@ -112,10 +112,10 @@ class TransformerModel(nn.Module):
             )
             
         return logits, loss
-
-    # Key Differences from GPT-2
-    # Positional Encoding: Using learned embeddings instead of sinusoidal
-    # Normalization: LayerNorm placement differs from standard GPT
-    # Initialization: No pretrained weights - you control all init
-    # Architecture: Freedom to modify attention/FFN layers
-
+'''
+    Key Differences from GPT-2
+    Positional Encoding: Using learned embeddings instead of sinusoidal
+    Normalization: LayerNorm placement differs from standard GPT
+    Initialization: No pretrained weights - you control all init
+    Architecture: Freedom to modify attention/FFN layers
+'''
