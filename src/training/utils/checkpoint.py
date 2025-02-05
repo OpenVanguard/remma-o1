@@ -3,11 +3,11 @@ import os
 from datetime import datetime
 
 def save_checkpoint(model, optimizer, step, config):
-    checkpoint_dir = f"models/checkpoints/{config['model_name']}"
+    checkpoint_dir = f"models/checkpoints/{config['model']['name']}"
     os.makedirs(checkpoint_dir, exist_ok=True)
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M")
-    filename = f"{config['model_name']}_step{step}_{timestamp}.pt"
+    filename = f"{config['model']['name']}_step{step}_{timestamp}.pt"
     
     torch.save({
         "step": step,
