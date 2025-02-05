@@ -1,5 +1,6 @@
 from .transformer import TransformerModel
 
+__all__ = ['TransformerModel']
 def build_model(config):
     return TransformerModel(
         vocab_size=config["vocab_size"],
