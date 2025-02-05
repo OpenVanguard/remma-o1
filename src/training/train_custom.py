@@ -39,7 +39,11 @@ class MultiDomainDataset(Dataset):
 
     def __getitem__(self, idx):
         example = self.data[idx]
-        chunk = example["input_ids"][:self.block_size]
+        # Ensure proper sequence length handling
+        chunk = example["input_ids"][:self.block_size].tolist()
+        # Add padding if needed
+        if len(chunk) < self.block_size:
+            chunk += [0] * (self.block_size - len(chunk))
         
         # Domain-aware processing
         domain = example.get("domain", "c4")
@@ -57,7 +61,7 @@ def main():
     
     # Initialize model
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = build_model(config).to(device)
+    model = build_model(config["model"]).to(device)  # Pass model config
     
     # Load combined dataset
     try:
@@ -66,7 +70,7 @@ def main():
         raise RuntimeError("Dataset not found. Run data processing pipeline first.")
     
     # Create dataloader with domain-aware sampling
-    train_dataset = MultiDomainDataset(dataset["train"], config["block_size"])
+    train_dataset = MultiDomainDataset(dataset["train"], config["model"]["block_size"])
     dataloader = DataLoader(
         train_dataset,
         batch_size=config.get("batch_size", 32),
@@ -119,10 +123,11 @@ def main():
                     weighted_loss = (loss * weights).mean()
                 
                 scaler.scale(weighted_loss).backward()
-                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-                scaler.step(optimizer)
-                scaler.update()
-                scheduler.step()
+                if (global_step + 1) % grad_accum_steps == 0:
+                    torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+                    scaler.step(optimizer)
+                    scaler.update()
+                    scheduler.step()
                 
                 # Update tracking
                 global_step += 1
@@ -172,7 +177,7 @@ def run_validation(model, device, config):
     model.eval()
     valid_dataset = load_from_disk("data/processed/validation_dataset")
     valid_loader = DataLoader(
-        MultiDomainDataset(valid_dataset),
+        MultiDomainDataset(valid_dataset, config["model"]["block_size"]),
         batch_size=config.get("val_batch_size", 16),
         num_workers=os.cpu_count() // 2
     )
