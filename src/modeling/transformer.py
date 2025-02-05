@@ -91,6 +91,8 @@ class TransformerModel(nn.Module):
         
     def forward(self, x, targets=None):
         B, T = x.shape
+        # Ensure sequence length doesn't exceed block_size
+        T = min(T, self.block_size)
         pos = torch.arange(0, T, dtype=torch.long, device=x.device).unsqueeze(0)
         
         tok_emb = self.embed(x)
