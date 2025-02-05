@@ -1,5 +1,6 @@
 model:
   # Added model architecture parameters
+  name: "remma-o1-v1.0"
   vocab_size: 500017  # UPDATE THIS WITH ACTUAL VOCAB SIZE FROM TOKENIZER
   embed_size: 1024
   num_layers: 12
