@@ -2,7 +2,7 @@
 import os
 from datasets import Dataset, concatenate_datasets, load_from_disk
 from pathlib import Path
-import pyarrow as pa
+import re
 
 def merge_tokenized_data():
     # Input paths
@@ -14,29 +14,33 @@ def merge_tokenized_data():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     def load_shards(folder: Path):
-        """Load all .arrow shards from a directory"""
-        tables = []
-        # Get sorted list of checkpoint files (excluding final)
-        files = sorted(
-            [f for f in folder.glob("*.arrow") if "final" not in f.name],
-            key=lambda x: int(x.stem.split("_")[-1])
+        """Load all checkpoint directories from a parent folder"""
+        # Get sorted list of checkpoint directories
+        dirs = sorted(
+            [d for d in folder.iterdir() if d.is_dir() and "tokenized_checkpoint" in d.name],
+            key=lambda x: int(re.search(r'\d+', x.name).group())
         )
         
-        # Add final file last if exists
-        final_file = folder / "tokenized_final.arrow"
-        if final_file.exists():
-            files.append(final_file)
+        # Add final directory if exists
+        final_dir = folder / "tokenized_final.arrow"
+        if final_dir.exists():
+            dirs.append(final_dir)
 
-        for f in files:
-            if f.exists():
-                tables.append(pa.ipc.RecordBatchFileReader(f).read_all())
-            else:
-                print(f"Warning: Missing file {f}, skipping")
+        datasets = []
+        for d in dirs:
+            try:
+                # Each checkpoint directory contains sharded data
+                ds = load_from_disk(d)
+                datasets.append(ds)
+                print(f"Loaded {len(ds)} examples from {d.name}")
+            except Exception as e:
+                print(f"Error loading {d}: {str(e)}")
+                continue
 
-        if not tables:
-            raise FileNotFoundError(f"No valid .arrow files found in {folder}")
+        if not datasets:
+            raise FileNotFoundError(f"No valid datasets found in {folder}")
             
-        return Dataset(pa.concat_tables(tables))
+        return concatenate_datasets(datasets)
 
     # Load and label datasets
     print("Loading math data...")
