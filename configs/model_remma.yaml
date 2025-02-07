@@ -10,6 +10,7 @@ model:
   dropout: 0.1
 
 training:
+  dataset_path: "data/processed/wiki_only"
   # Consolidated training parameters
   total_steps: 500017
   batch_size: 32
@@ -22,11 +23,5 @@ training:
   val_batch_size: 16
   run_validation: true
   domain_weights:
-    c4: 0.7
-    wikipedia: 0.2
-    math: 0.1
-
-data:
-  # Add dataset paths if needed
-  train_path: "data/processed/final_dataset"
-  val_path: "data/processed/validation_dataset"
+    wikipedia: 0.8
+    math: 0.2
