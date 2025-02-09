@@ -1,0 +1,15 @@
+{"time":"2025-02-07T02:19:01.9410376+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"C:\\Users\\VIRAT\\Projects\\remma-o1\\wandb\\run-20250207_021901-xjiegmc0\\logs\\debug-core.log"}
+{"time":"2025-02-07T02:19:02.0558503+05:30","level":"INFO","msg":"created new stream","id":"xjiegmc0"}
+{"time":"2025-02-07T02:19:02.0558503+05:30","level":"INFO","msg":"stream: started","id":"xjiegmc0"}
+{"time":"2025-02-07T02:19:02.0558503+05:30","level":"INFO","msg":"handler: started","stream_id":"xjiegmc0"}
+{"time":"2025-02-07T02:19:02.0558503+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"xjiegmc0"}
+{"time":"2025-02-07T02:19:02.0558503+05:30","level":"INFO","msg":"sender: started","stream_id":"xjiegmc0"}
+{"time":"2025-02-07T02:19:02.5226717+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-02-07T02:20:26.264163+05:30","level":"INFO","msg":"stream: closing","id":"xjiegmc0"}
+{"time":"2025-02-07T02:20:26.265138+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-02-07T02:20:26.2673297+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-02-07T02:20:27.3813025+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-02-07T02:20:27.7762402+05:30","level":"INFO","msg":"handler: closed","stream_id":"xjiegmc0"}
+{"time":"2025-02-07T02:20:27.7762402+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":"xjiegmc0"}
+{"time":"2025-02-07T02:20:27.7762402+05:30","level":"INFO","msg":"sender: closed","stream_id":"xjiegmc0"}
+{"time":"2025-02-07T02:20:27.7762402+05:30","level":"INFO","msg":"stream: closed","id":"xjiegmc0"}

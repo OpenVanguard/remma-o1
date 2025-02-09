@@ -1,0 +1,59 @@
+Training:   0%|                                                                                                                                                  | 0/100000 [01:30<?, ?it/s]
+Training completed!
+Traceback (most recent call last):
+  File "C:\Program Files\Python310\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Program Files\Python310\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\VIRAT\Projects\remma-o1\src\training\train_custom.py", line 203, in <module>
+    main()
+  File "C:\Users\VIRAT\Projects\remma-o1\src\training\train_custom.py", line 121, in main
+    for x, y, weights in dataloader:
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\dataloader.py", line 708, in __next__
+    data = self._next_data()
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\dataloader.py", line 1480, in _next_data
+    return self._process_data(data)
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\dataloader.py", line 1505, in _process_data
+    data.reraise()
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\_utils.py", line 733, in reraise
+    raise exception
+AttributeError: Caught AttributeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\worker.py", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\fetch.py", line 52, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\fetch.py", line 52, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "C:\Users\VIRAT\Projects\remma-o1\src\training\train_custom.py", line 44, in __getitem__
+    chunk = example["input_ids"][:self.block_size].tolist()
+AttributeError: 'list' object has no attribute 'tolist'
+
+Traceback (most recent call last):
+  File "C:\Program Files\Python310\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Program Files\Python310\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\VIRAT\Projects\remma-o1\src\training\train_custom.py", line 203, in <module>
+    main()
+  File "C:\Users\VIRAT\Projects\remma-o1\src\training\train_custom.py", line 121, in main
+    for x, y, weights in dataloader:
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\dataloader.py", line 708, in __next__
+    data = self._next_data()
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\dataloader.py", line 1480, in _next_data
+    return self._process_data(data)
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\dataloader.py", line 1505, in _process_data
+    data.reraise()
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\_utils.py", line 733, in reraise
+    raise exception
+AttributeError: Caught AttributeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\worker.py", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\fetch.py", line 52, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\fetch.py", line 52, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "C:\Users\VIRAT\Projects\remma-o1\src\training\train_custom.py", line 44, in __getitem__
+    chunk = example["input_ids"][:self.block_size].tolist()
+AttributeError: 'list' object has no attribute 'tolist'
