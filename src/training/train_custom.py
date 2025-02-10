@@ -11,6 +11,8 @@ Key improvements made:
     Error handling for missing dependencies
     Batch size and workers configuration
 '''
+
+
 # src/training/train_custom.py
 import os
 import yaml
@@ -25,18 +27,31 @@ from torch.cuda.amp import GradScaler, autocast
 from torch.optim.lr_scheduler import CosineAnnealingLR
 
 class MultiDomainDataset(Dataset):
-    def __init__(self, tokenized_data, block_size=2048):
-        self.data = tokenized_data
+    def __init__(self, data, block_size):
+        self.data = data
         self.block_size = block_size
-        self.domain_weights = {
-            'c4': 0.7,
-            'wikipedia': 0.2,
-            'math': 0.1
-        }
+
+    def __getitem__(self, index):
+        example = self.data[index]
+        
+        # Directly slice the list without calling tolist()
+        chunk = example["input_ids"][:self.block_size]  # No tolist() needed
+        
+        # Convert to tensor if necessary
+        if isinstance(chunk, list):
+            chunk = torch.tensor(chunk)  # Convert to tensor if necessary
+        
+        # Assuming you have other fields like labels and weights
+        label = example.get("label", None)  # Adjust based on your dataset structure
+        weights = example.get("weights", None)  # Adjust based on your dataset structure
+        
+        return chunk, label, weights
 
     def __len__(self):
         return len(self.data)
 
+    def __len__(self):
+        return len(self.data)
     def __getitem__(self, idx):
         example = self.data[idx]
         # Ensure proper sequence length handling
@@ -46,7 +61,7 @@ class MultiDomainDataset(Dataset):
             chunk += [0] * (self.block_size - len(chunk))
         
         # Domain-aware processing
-        domain = example.get("domain", "c4")
+        domain = example["domain"]
         loss_weight = self.domain_weights.get(domain, 1.0)
         
         x = torch.tensor(chunk[:-1], dtype=torch.long)
@@ -63,14 +78,18 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = build_model(config["model"]).to(device)  # Pass model config
     
-    # Load combined dataset
+    # Load the entire dataset from the specified folder
     try:
         dataset = load_from_disk("data/processed/final_dataset")
     except FileNotFoundError:
         raise RuntimeError("Dataset not found. Run data processing pipeline first.")
     
+    # Use the entire dataset for training
+    print("Using the entire dataset for training.")
+    train_data = dataset  # Directly use the loaded dataset
+    
     # Create dataloader with domain-aware sampling
-    train_dataset = MultiDomainDataset(dataset["train"], config["model"]["block_size"])
+    train_dataset = MultiDomainDataset(train_data, config["model"]["block_size"])
     dataloader = DataLoader(
         train_dataset,
         batch_size=config.get("batch_size", 32),
@@ -95,6 +114,7 @@ def main():
     # Training setup
     global_step = 0
     model.train()
+    grad_accum_steps = config.get("grad_accum_steps", 1)  # Set default value if not in config
     
     # Initialize WandB
     wandb_available = False
