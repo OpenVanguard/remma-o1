@@ -18,7 +18,6 @@ import os
 import yaml
 import torch
 from tqdm import tqdm
-from datetime import datetime
 from torch.utils.data import DataLoader, Dataset
 from datasets import load_from_disk
 from src.modeling import build_model
@@ -26,48 +25,20 @@ from src.training.utils.checkpoint import save_checkpoint
 from torch.cuda.amp import GradScaler, autocast
 from torch.optim.lr_scheduler import CosineAnnealingLR
 
-class MultiDomainDataset(Dataset):
-    def __init__(self, data, block_size):
-        self.data = data
+class WikipediaDataset(Dataset):
+    def __init__(self, tokenized_data, block_size=2048):
+        self.data = tokenized_data
         self.block_size = block_size
 
-    def __getitem__(self, index):
-        example = self.data[index]
-        
-        # Directly slice the list without calling tolist()
-        chunk = example["input_ids"][:self.block_size]  # No tolist() needed
-        
-        # Convert to tensor if necessary
-        if isinstance(chunk, list):
-            chunk = torch.tensor(chunk)  # Convert to tensor if necessary
-        
-        # Assuming you have other fields like labels and weights
-        label = example.get("label", None)  # Adjust based on your dataset structure
-        weights = example.get("weights", None)  # Adjust based on your dataset structure
-        
-        return chunk, label, weights
-
     def __len__(self):
         return len(self.data)
 
-    def __len__(self):
-        return len(self.data)
     def __getitem__(self, idx):
         example = self.data[idx]
-        # Ensure proper sequence length handling
-        chunk = example["input_ids"][:self.block_size].tolist()
-        # Add padding if needed
-        if len(chunk) < self.block_size:
-            chunk += [0] * (self.block_size - len(chunk))
-        
-        # Domain-aware processing
-        domain = example["domain"]
-        loss_weight = self.domain_weights.get(domain, 1.0)
-        
+        chunk = example["input_ids"][:self.block_size]
         x = torch.tensor(chunk[:-1], dtype=torch.long)
         y = torch.tensor(chunk[1:], dtype=torch.long)
-        
-        return x, y, torch.tensor(loss_weight)
+        return x, y
 
 def main():
     # Load configuration
@@ -76,23 +47,19 @@ def main():
     
     # Initialize model
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = build_model(config["model"]).to(device)  # Pass model config
+    model = build_model(config["model"]).to(device)
     
-    # Load the entire dataset from the specified folder
+    # Load Wikipedia dataset
     try:
-        dataset = load_from_disk("data/processed/final_dataset")
+        dataset = load_from_disk("data/processed/wiki_only")
     except FileNotFoundError:
-        raise RuntimeError("Dataset not found. Run data processing pipeline first.")
+        raise RuntimeError("Wikipedia dataset not found. Run data processing first.")
     
-    # Use the entire dataset for training
-    print("Using the entire dataset for training.")
-    train_data = dataset  # Directly use the loaded dataset
-    
-    # Create dataloader with domain-aware sampling
-    train_dataset = MultiDomainDataset(train_data, config["model"]["block_size"])
+    # Create dataloader
+    train_dataset = WikipediaDataset(dataset["train"], config["model"]["block_size"])
     dataloader = DataLoader(
         train_dataset,
-        batch_size=config.get("batch_size", 32),
+        batch_size=config["training"]["batch_size"],
         shuffle=True,
         num_workers=os.cpu_count() // 2,
         pin_memory=True
@@ -101,72 +68,67 @@ def main():
     # Optimizer and scheduler
     optimizer = torch.optim.AdamW(
         model.parameters(),
-        lr=config.get("learning_rate", 3e-4),
-        weight_decay=config.get("weight_decay", 0.1)
+        lr=config["training"]["learning_rate"],
+        weight_decay=config["training"]["weight_decay"]
     )
     scheduler = CosineAnnealingLR(
         optimizer,
-        T_max=config.get("total_steps", 100_000),
-        eta_min=config.get("min_lr", 1e-5)
+        T_max=config["training"]["total_steps"],
+        eta_min=config["training"]["min_lr"]
     )
     scaler = GradScaler()
     
     # Training setup
     global_step = 0
     model.train()
-    grad_accum_steps = config.get("grad_accum_steps", 1)  # Set default value if not in config
     
     # Initialize WandB
     wandb_available = False
     try:
         import wandb
-        wandb.init(project="remma-training", config=config)
+        wandb.init(project="remma-wiki-training", config=config)
         wandb_available = True
-        wandb.watch(model, log="all")
+        wandb.watch(model)
     except ImportError:
         print("Wandb not installed, skipping logging")
     
     # Progress tracking
-    progress_bar = tqdm(total=config.get("total_steps", 100_000), desc="Training")
+    progress_bar = tqdm(total=config["training"]["total_steps"], desc="Training")
     
-    # Mixed-precision training loop
     try:
-        while global_step < config.get("total_steps", 100_000):
-            for x, y, weights in dataloader:
-                x, y = x.to(device, non_blocking=True), y.to(device, non_blocking=True)
-                weights = weights.to(device)
+        while global_step < config["training"]["total_steps"]:
+            for x, y in dataloader:
+                x, y = x.to(device), y.to(device)
                 
-                optimizer.zero_grad(set_to_none=True)
+                optimizer.zero_grad()
                 
                 with autocast(dtype=torch.bfloat16):
-                    logits, loss = model(x, targets=y)
-                    weighted_loss = (loss * weights).mean()
+                    _, loss = model(x, targets=y)
                 
-                scaler.scale(weighted_loss).backward()
-                if (global_step + 1) % grad_accum_steps == 0:
-                    torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-                    scaler.step(optimizer)
-                    scaler.update()
-                    scheduler.step()
+                scaler.scale(loss).backward()
+                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+                scaler.step(optimizer)
+                scaler.update()
+                scheduler.step()
                 
                 # Update tracking
                 global_step += 1
                 progress_bar.update(1)
                 progress_bar.set_postfix({
-                    "loss": weighted_loss.item(),
+                    "loss": loss.item(),
                     "lr": optimizer.param_groups[0]['lr']
                 })
                 
                 # Log metrics
                 if wandb_available:
                     wandb.log({
-                        "loss": weighted_loss.item(),
+                        "loss": loss.item(),
                         "learning_rate": optimizer.param_groups[0]['lr'],
                         "step": global_step
                     })
                 
                 # Checkpointing
-                if global_step % config.get("checkpoint_steps", 10_000) == 0:
+                if global_step % config["training"]["checkpoint_steps"] == 0:
                     save_checkpoint(
                         model=model,
                         optimizer=optimizer,
@@ -174,14 +136,8 @@ def main():
                         step=global_step,
                         config=config
                     )
-                    
-                    # Validation (optional)
-                    if config.get("run_validation", False):
-                        validation_loss = run_validation(model, device, config)
-                        if wandb_available:
-                            wandb.log({"validation_loss": validation_loss})
                 
-                if global_step >= config.get("total_steps", 100_000):
+                if global_step >= config["training"]["total_steps"]:
                     break
 
     except KeyboardInterrupt:
@@ -191,27 +147,6 @@ def main():
     finally:
         progress_bar.close()
         print("Training completed!")
-
-def run_validation(model, device, config):
-    """Optional validation loop"""
-    model.eval()
-    valid_dataset = load_from_disk("data/processed/validation_dataset")
-    valid_loader = DataLoader(
-        MultiDomainDataset(valid_dataset, config["model"]["block_size"]),
-        batch_size=config.get("val_batch_size", 16),
-        num_workers=os.cpu_count() // 2
-    )
-    
-    total_loss = 0.0
-    with torch.no_grad():
-        for x, y, _ in valid_loader:
-            x, y = x.to(device), y.to(device)
-            with autocast(dtype=torch.bfloat16):
-                _, loss = model(x, targets=y)
-            total_loss += loss.item()
-    
-    model.train()
-    return total_loss / len(valid_loader)
 
 if __name__ == "__main__":
     main()
