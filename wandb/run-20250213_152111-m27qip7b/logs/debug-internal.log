@@ -1,0 +1,16 @@
+{"time":"2025-02-13T15:21:12.1121859+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"C:\\Users\\VIRAT\\Projects\\remma-o1\\wandb\\run-20250213_152111-m27qip7b\\logs\\debug-core.log"}
+{"time":"2025-02-13T15:21:12.4422247+05:30","level":"INFO","msg":"created new stream","id":"m27qip7b"}
+{"time":"2025-02-13T15:21:12.4428661+05:30","level":"INFO","msg":"stream: started","id":"m27qip7b"}
+{"time":"2025-02-13T15:21:12.4428661+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"m27qip7b"}
+{"time":"2025-02-13T15:21:12.4428661+05:30","level":"INFO","msg":"sender: started","stream_id":"m27qip7b"}
+{"time":"2025-02-13T15:21:12.4428661+05:30","level":"INFO","msg":"handler: started","stream_id":"m27qip7b"}
+{"time":"2025-02-13T15:21:12.9160667+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-02-13T15:46:28.2348363+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-02-13T15:46:28.2469251+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-02-13T15:46:29.2407621+05:30","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading summary, console lines 0-0","runtime_seconds":0.4143219},{"desc":"uploading output.log","runtime_seconds":0.3439002,"progress":"165B/165B"},{"desc":"uploading wandb-summary.json","runtime_seconds":0.3421367,"progress":"27B/27B"},{"desc":"uploading config.yaml","runtime_seconds":0.0457538,"progress":"1.0KB/1.0KB"}],"total_operations":4}}
+{"time":"2025-02-13T15:46:29.5951141+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-02-13T15:46:31.1231837+05:30","level":"INFO","msg":"stream: closing","id":"m27qip7b"}
+{"time":"2025-02-13T15:46:31.1231837+05:30","level":"INFO","msg":"handler: closed","stream_id":"m27qip7b"}
+{"time":"2025-02-13T15:46:31.1239224+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":"m27qip7b"}
+{"time":"2025-02-13T15:46:31.1239224+05:30","level":"INFO","msg":"sender: closed","stream_id":"m27qip7b"}
+{"time":"2025-02-13T15:46:31.1250791+05:30","level":"INFO","msg":"stream: closed","id":"m27qip7b"}

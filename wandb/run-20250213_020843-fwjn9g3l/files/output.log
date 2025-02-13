@@ -1,0 +1,6 @@
+Training:   0%|                                                                                                                           | 0/500017 [00:00<?, ?it/s]C:\Users\VIRAT\Projects\remma-o1\src\training\train_custom.py:144: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+
+Starting epoch 0
+  with autocast(dtype=torch.bfloat16):
+C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\amp\autocast_mode.py:266: UserWarning: User provided device_type of 'cuda', but CUDA is not available. Disabling
+  warnings.warn(

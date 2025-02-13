@@ -1,0 +1,71 @@
+Training:   0%|                                                                                                      | 0/500017 [01:14<?, ?it/s]
+Training completed!
+Traceback (most recent call last):
+  File "C:\Program Files\Python310\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Program Files\Python310\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\VIRAT\Projects\remma-o1\src\training\train_custom.py", line 158, in <module>
+    main()
+  File "C:\Users\VIRAT\Projects\remma-o1\src\training\train_custom.py", line 106, in main
+    for x, y in dataloader:
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\dataloader.py", line 708, in __next__
+    data = self._next_data()
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\dataloader.py", line 1480, in _next_data
+    return self._process_data(data)
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\dataloader.py", line 1505, in _process_data
+    data.reraise()
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\_utils.py", line 733, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\worker.py", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\fetch.py", line 55, in fetch
+    return self.collate_fn(data)
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\collate.py", line 398, in default_collate
+    return collate(batch, collate_fn_map=default_collate_fn_map)
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\collate.py", line 211, in collate
+    return [
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\collate.py", line 212, in <listcomp>
+    collate(samples, collate_fn_map=collate_fn_map)
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\collate.py", line 155, in collate
+    return collate_fn_map[elem_type](batch, collate_fn_map=collate_fn_map)
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\collate.py", line 272, in collate_tensor_fn
+    return torch.stack(batch, 0, out=out)
+RuntimeError: stack expects each tensor to be equal size, but got [24] at entry 0 and [0] at entry 1
+
+Traceback (most recent call last):
+  File "C:\Program Files\Python310\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Program Files\Python310\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\VIRAT\Projects\remma-o1\src\training\train_custom.py", line 158, in <module>
+    main()
+  File "C:\Users\VIRAT\Projects\remma-o1\src\training\train_custom.py", line 106, in main
+    for x, y in dataloader:
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\dataloader.py", line 708, in __next__
+    data = self._next_data()
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\dataloader.py", line 1480, in _next_data
+    return self._process_data(data)
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\dataloader.py", line 1505, in _process_data
+    data.reraise()
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\_utils.py", line 733, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\worker.py", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\fetch.py", line 55, in fetch
+    return self.collate_fn(data)
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\collate.py", line 398, in default_collate
+    return collate(batch, collate_fn_map=default_collate_fn_map)
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\collate.py", line 211, in collate
+    return [
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\collate.py", line 212, in <listcomp>
+    collate(samples, collate_fn_map=collate_fn_map)
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\collate.py", line 155, in collate
+    return collate_fn_map[elem_type](batch, collate_fn_map=collate_fn_map)
+  File "C:\Users\VIRAT\Projects\remma-o1\venv\lib\site-packages\torch\utils\data\_utils\collate.py", line 272, in collate_tensor_fn
+    return torch.stack(batch, 0, out=out)
+RuntimeError: stack expects each tensor to be equal size, but got [24] at entry 0 and [0] at entry 1

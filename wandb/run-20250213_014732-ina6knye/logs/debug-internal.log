@@ -1,0 +1,15 @@
+{"time":"2025-02-13T01:47:33.1023706+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"C:\\Users\\VIRAT\\Projects\\remma-o1\\wandb\\run-20250213_014732-ina6knye\\logs\\debug-core.log"}
+{"time":"2025-02-13T01:47:33.4351196+05:30","level":"INFO","msg":"created new stream","id":"ina6knye"}
+{"time":"2025-02-13T01:47:33.4375168+05:30","level":"INFO","msg":"stream: started","id":"ina6knye"}
+{"time":"2025-02-13T01:47:33.4375168+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"ina6knye"}
+{"time":"2025-02-13T01:47:33.4375168+05:30","level":"INFO","msg":"sender: started","stream_id":"ina6knye"}
+{"time":"2025-02-13T01:47:33.4351196+05:30","level":"INFO","msg":"handler: started","stream_id":"ina6knye"}
+{"time":"2025-02-13T01:47:33.9447926+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-02-13T01:48:52.1245436+05:30","level":"INFO","msg":"stream: closing","id":"ina6knye"}
+{"time":"2025-02-13T01:48:52.1253059+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-02-13T01:48:52.1274999+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-02-13T01:48:54.3305294+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-02-13T01:48:54.7498758+05:30","level":"INFO","msg":"handler: closed","stream_id":"ina6knye"}
+{"time":"2025-02-13T01:48:54.7498758+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":"ina6knye"}
+{"time":"2025-02-13T01:48:54.7498758+05:30","level":"INFO","msg":"sender: closed","stream_id":"ina6knye"}
+{"time":"2025-02-13T01:48:54.7498758+05:30","level":"INFO","msg":"stream: closed","id":"ina6knye"}

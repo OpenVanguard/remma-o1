@@ -1,0 +1,7 @@
+{"time":"2025-02-13T01:52:29.4598366+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"C:\\Users\\VIRAT\\Projects\\remma-o1\\wandb\\run-20250213_015229-8ea840g6\\logs\\debug-core.log"}
+{"time":"2025-02-13T01:52:29.5719478+05:30","level":"INFO","msg":"created new stream","id":"8ea840g6"}
+{"time":"2025-02-13T01:52:29.5719478+05:30","level":"INFO","msg":"stream: started","id":"8ea840g6"}
+{"time":"2025-02-13T01:52:29.5719478+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"8ea840g6"}
+{"time":"2025-02-13T01:52:29.5719478+05:30","level":"INFO","msg":"sender: started","stream_id":"8ea840g6"}
+{"time":"2025-02-13T01:52:29.5719478+05:30","level":"INFO","msg":"handler: started","stream_id":"8ea840g6"}
+{"time":"2025-02-13T01:52:30.0625816+05:30","level":"INFO","msg":"Starting system monitor"}

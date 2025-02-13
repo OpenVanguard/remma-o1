@@ -1,0 +1,23 @@
+2025-02-13 01:52:29,190 INFO    MainThread:32128 [wandb_setup.py:_flush():68] Current SDK version is 0.19.5
+2025-02-13 01:52:29,190 INFO    MainThread:32128 [wandb_setup.py:_flush():68] Configure stats pid to 32128
+2025-02-13 01:52:29,190 INFO    MainThread:32128 [wandb_setup.py:_flush():68] Loading settings from C:\Users\VIRAT\.config\wandb\settings
+2025-02-13 01:52:29,190 INFO    MainThread:32128 [wandb_setup.py:_flush():68] Loading settings from C:\Users\VIRAT\Projects\remma-o1\wandb\settings
+2025-02-13 01:52:29,190 INFO    MainThread:32128 [wandb_setup.py:_flush():68] Loading settings from environment variables
+2025-02-13 01:52:29,190 INFO    MainThread:32128 [wandb_init.py:setup_run_log_directory():637] Logging user logs to C:\Users\VIRAT\Projects\remma-o1\wandb\run-20250213_015229-8ea840g6\logs\debug.log
+2025-02-13 01:52:29,190 INFO    MainThread:32128 [wandb_init.py:setup_run_log_directory():638] Logging internal logs to C:\Users\VIRAT\Projects\remma-o1\wandb\run-20250213_015229-8ea840g6\logs\debug-internal.log
+2025-02-13 01:52:29,190 INFO    MainThread:32128 [wandb_init.py:init():756] calling init triggers
+2025-02-13 01:52:29,190 INFO    MainThread:32128 [wandb_init.py:init():761] wandb.init called with sweep_config: {}
+config: {'model': {'name': 'remma-o1-v1.0', 'vocab_size': 500017, 'embed_size': 1024, 'num_layers': 12, 'num_heads': 8, 'ff_dim': 4096, 'block_size': 2048, 'dropout': 0.1}, 'training': {'dataset_path': 'data/processed/final_dataset', 'total_steps': 500017, 'batch_size': 32, 'learning_rate': 0.0003, 'min_lr': 1e-05, 'weight_decay': 0.1, 'checkpoint_steps': 5000}, '_wandb': {}}
+2025-02-13 01:52:29,190 INFO    MainThread:32128 [wandb_init.py:init():789] starting backend
+2025-02-13 01:52:29,430 INFO    MainThread:32128 [wandb_init.py:init():793] sending inform_init request
+2025-02-13 01:52:29,444 INFO    MainThread:32128 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2025-02-13 01:52:29,455 INFO    MainThread:32128 [wandb_init.py:init():808] backend started and connected
+2025-02-13 01:52:29,456 INFO    MainThread:32128 [wandb_init.py:init():901] updated telemetry
+2025-02-13 01:52:29,500 INFO    MainThread:32128 [wandb_init.py:init():926] communicating run to backend with 90.0 second timeout
+2025-02-13 01:52:30,055 INFO    MainThread:32128 [wandb_init.py:init():984] starting run threads in backend
+2025-02-13 01:52:30,383 INFO    MainThread:32128 [wandb_run.py:_console_start():2385] atexit reg
+2025-02-13 01:52:30,384 INFO    MainThread:32128 [wandb_run.py:_redirect():2235] redirect: wrap_raw
+2025-02-13 01:52:30,384 INFO    MainThread:32128 [wandb_run.py:_redirect():2300] Wrapping output streams.
+2025-02-13 01:52:30,385 INFO    MainThread:32128 [wandb_run.py:_redirect():2325] Redirects installed.
+2025-02-13 01:52:30,388 INFO    MainThread:32128 [wandb_init.py:init():1026] run started, returning control to user process
+2025-02-13 01:52:30,388 INFO    MainThread:32128 [wandb_watch.py:_watch():71] Watching

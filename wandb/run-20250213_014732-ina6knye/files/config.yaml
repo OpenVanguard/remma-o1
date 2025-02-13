@@ -1,0 +1,49 @@
+_wandb:
+    value:
+        cli_version: 0.19.5
+        m: []
+        python_version: 3.10.9
+        t:
+            "1":
+                - 1
+                - 49
+                - 51
+                - 55
+                - 105
+            "2":
+                - 1
+                - 49
+                - 51
+                - 55
+                - 105
+            "3":
+                - 1
+                - 16
+                - 23
+                - 55
+            "4": 3.10.9
+            "5": 0.19.5
+            "8":
+                - 3
+                - 5
+            "12": 0.19.5
+            "13": windows-amd64
+model:
+    value:
+        block_size: 2048
+        dropout: 0.1
+        embed_size: 1024
+        ff_dim: 4096
+        name: remma-o1-v1.0
+        num_heads: 8
+        num_layers: 12
+        vocab_size: 500017
+training:
+    value:
+        batch_size: 32
+        checkpoint_steps: 5000
+        dataset_path: data/processed/final_dataset
+        learning_rate: 0.0003
+        min_lr: 1e-05
+        total_steps: 500017
+        weight_decay: 0.1

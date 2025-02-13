@@ -1,0 +1,19 @@
+{"time":"2025-02-13T02:14:21.482565+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"C:\\Users\\VIRAT\\Projects\\remma-o1\\wandb\\run-20250213_021421-tbpglcch\\logs\\debug-core.log"}
+{"time":"2025-02-13T02:14:21.5977319+05:30","level":"INFO","msg":"created new stream","id":"tbpglcch"}
+{"time":"2025-02-13T02:14:21.5977319+05:30","level":"INFO","msg":"stream: started","id":"tbpglcch"}
+{"time":"2025-02-13T02:14:21.5977319+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"tbpglcch"}
+{"time":"2025-02-13T02:14:21.5983442+05:30","level":"INFO","msg":"sender: started","stream_id":"tbpglcch"}
+{"time":"2025-02-13T02:14:21.5983442+05:30","level":"INFO","msg":"handler: started","stream_id":"tbpglcch"}
+{"time":"2025-02-13T02:14:22.0785552+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-02-13T02:19:22.0888765+05:30","level":"ERROR","msg":"monitor: cpu: error sampling metrics: couldn't find pid: 10648"}
+{"time":"2025-02-13T02:19:32.0889804+05:30","level":"ERROR","msg":"monitor: cpu: error sampling metrics: couldn't find pid: 10648"}
+{"time":"2025-02-13T02:19:42.0794734+05:30","level":"ERROR","msg":"monitor: memory: error sampling metrics: The parameter is incorrect."}
+{"time":"2025-02-13T02:19:42.0873783+05:30","level":"ERROR","msg":"monitor: cpu: error sampling metrics: could not get CreationDate: The parameter is incorrect.\ncouldn't find pid: 10648"}
+{"time":"2025-02-13T02:19:52.0800368+05:30","level":"ERROR","msg":"monitor: memory: error sampling metrics: The parameter is incorrect."}
+{"time":"2025-02-13T02:19:52.0907847+05:30","level":"ERROR","msg":"monitor: cpu: error sampling metrics: could not get CreationDate: The parameter is incorrect.\ncouldn't find pid: 10648"}
+{"time":"2025-02-13T02:20:02.0795419+05:30","level":"ERROR","msg":"monitor: memory: error sampling metrics: The parameter is incorrect."}
+{"time":"2025-02-13T02:20:02.0893528+05:30","level":"ERROR","msg":"monitor: cpu: error sampling metrics: could not get CreationDate: The parameter is incorrect.\ncouldn't find pid: 10648"}
+{"time":"2025-02-13T04:30:35.7804052+05:30","level":"ERROR","msg":"monitor: memory: error sampling metrics: The parameter is incorrect."}
+{"time":"2025-02-13T04:30:35.8177617+05:30","level":"ERROR","msg":"monitor: cpu: error sampling metrics: could not get CreationDate: The parameter is incorrect.\ncouldn't find pid: 10648"}
+{"time":"2025-02-13T04:30:35.8535236+05:30","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/viratsrivastava-research/remma-wiki-training/tbpglcch/file_stream\": net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)"}
+{"time":"2025-02-13T04:30:37.8916949+05:30","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/viratsrivastava-research/remma-wiki-training/tbpglcch/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
