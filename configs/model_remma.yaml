@@ -10,18 +10,12 @@ model:
   dropout: 0.1
 
 training:
-  dataset_path: "data/processed/wiki_only"
-  # Consolidated training parameters
-  total_steps: 500017
-  batch_size: 32
+  dataset_path: "data/processed/final_dataset"
+  # Remove domain_weights entirely
+  total_steps: 500017  # Adjust as needed
+  batch_size: 1  # Updated batch size
+
   learning_rate: 3e-4
   min_lr: 1e-5
   weight_decay: 0.1
-  warmup_steps: 2000
-  math_weight: 1.5
-  checkpoint_steps: 10000
-  val_batch_size: 16
-  run_validation: true
-  domain_weights:
-    wikipedia: 0.8
-    math: 0.2
+  checkpoint_steps: 5000
