@@ -17,6 +17,7 @@
 - **Scalable**: Easily adaptable for various NLP tasks and applications.
 - **Efficient**: Optimized for performance and accuracy.
 - **Community-Centric**: Encourages contributions to enhance features and usability.
+- **Model Size**: Model parameters: 1177.79M
 
 ## Getting Started
 ### Prerequisites
