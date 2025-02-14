@@ -6,7 +6,7 @@
 [![Releases](https://img.shields.io/badge/releases-page-blue.svg)](https://github.com/OpenVanguard/remma-o1/releases/)
 
 ## Overview
-**remma-o1** is an open-source Large Language Model (LLM) designed for collaboration, and accurate natural language processing. This project aims to empower developers and researchers by providing:
+**remma-o1** is an open-source Small Language Model (SLM) designed for collaboration, and accurate natural language processing. This project aims to empower developers and researchers by providing:
 
 - Versatile and context-aware AI capabilities.
 - A robust, adaptable foundation for building intelligent systems.
