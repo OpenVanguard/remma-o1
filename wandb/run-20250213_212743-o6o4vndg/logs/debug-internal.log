@@ -1,0 +1,16 @@
+{"time":"2025-02-13T21:27:43.5631631+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.5","symlink path":"C:\\Users\\VIRAT\\Projects\\remma-o1\\wandb\\run-20250213_212743-o6o4vndg\\logs\\debug-core.log"}
+{"time":"2025-02-13T21:27:43.6724005+05:30","level":"INFO","msg":"created new stream","id":"o6o4vndg"}
+{"time":"2025-02-13T21:27:43.6724005+05:30","level":"INFO","msg":"stream: started","id":"o6o4vndg"}
+{"time":"2025-02-13T21:27:43.6724005+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"o6o4vndg"}
+{"time":"2025-02-13T21:27:43.6724005+05:30","level":"INFO","msg":"handler: started","stream_id":"o6o4vndg"}
+{"time":"2025-02-13T21:27:43.6724005+05:30","level":"INFO","msg":"sender: started","stream_id":"o6o4vndg"}
+{"time":"2025-02-13T21:27:44.1453617+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-02-13T21:30:30.254221+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-02-13T21:30:30.2557218+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-02-13T21:30:31.264924+05:30","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading output.log","runtime_seconds":0.1437661,"progress":"151B/151B"},{"desc":"uploading wandb-summary.json","runtime_seconds":0.1437661,"progress":"26B/26B"}],"total_operations":2}}
+{"time":"2025-02-13T21:30:31.9498471+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-02-13T21:30:33.4713368+05:30","level":"INFO","msg":"stream: closing","id":"o6o4vndg"}
+{"time":"2025-02-13T21:30:33.4713368+05:30","level":"INFO","msg":"handler: closed","stream_id":"o6o4vndg"}
+{"time":"2025-02-13T21:30:33.4713368+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":"o6o4vndg"}
+{"time":"2025-02-13T21:30:33.4713368+05:30","level":"INFO","msg":"sender: closed","stream_id":"o6o4vndg"}
+{"time":"2025-02-13T21:30:33.4718719+05:30","level":"INFO","msg":"stream: closed","id":"o6o4vndg"}

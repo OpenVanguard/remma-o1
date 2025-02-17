@@ -1,0 +1,30 @@
+2025-02-13 21:27:43,317 INFO    MainThread:6012 [wandb_setup.py:_flush():68] Current SDK version is 0.19.5
+2025-02-13 21:27:43,317 INFO    MainThread:6012 [wandb_setup.py:_flush():68] Configure stats pid to 6012
+2025-02-13 21:27:43,317 INFO    MainThread:6012 [wandb_setup.py:_flush():68] Loading settings from C:\Users\VIRAT\.config\wandb\settings
+2025-02-13 21:27:43,317 INFO    MainThread:6012 [wandb_setup.py:_flush():68] Loading settings from C:\Users\VIRAT\Projects\remma-o1\wandb\settings
+2025-02-13 21:27:43,317 INFO    MainThread:6012 [wandb_setup.py:_flush():68] Loading settings from environment variables
+2025-02-13 21:27:43,317 INFO    MainThread:6012 [wandb_init.py:setup_run_log_directory():637] Logging user logs to C:\Users\VIRAT\Projects\remma-o1\wandb\run-20250213_212743-o6o4vndg\logs\debug.log
+2025-02-13 21:27:43,318 INFO    MainThread:6012 [wandb_init.py:setup_run_log_directory():638] Logging internal logs to C:\Users\VIRAT\Projects\remma-o1\wandb\run-20250213_212743-o6o4vndg\logs\debug-internal.log
+2025-02-13 21:27:43,318 INFO    MainThread:6012 [wandb_init.py:init():756] calling init triggers
+2025-02-13 21:27:43,318 INFO    MainThread:6012 [wandb_init.py:init():761] wandb.init called with sweep_config: {}
+config: {'model': {'name': 'remma-o1-v1.0', 'vocab_size': 500017, 'embed_size': 1024, 'num_layers': 12, 'num_heads': 8, 'ff_dim': 4096, 'block_size': 2048, 'dropout': 0.1}, 'training': {'dataset_path': 'data/processed/final_dataset', 'total_steps': 500017, 'batch_size': 32, 'learning_rate': 0.0003, 'min_lr': 1e-05, 'weight_decay': 0.1, 'checkpoint_steps': 5000}, '_wandb': {}}
+2025-02-13 21:27:43,318 INFO    MainThread:6012 [wandb_init.py:init():789] starting backend
+2025-02-13 21:27:43,543 INFO    MainThread:6012 [wandb_init.py:init():793] sending inform_init request
+2025-02-13 21:27:43,559 INFO    MainThread:6012 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2025-02-13 21:27:43,560 INFO    MainThread:6012 [wandb_init.py:init():808] backend started and connected
+2025-02-13 21:27:43,561 INFO    MainThread:6012 [wandb_init.py:init():901] updated telemetry
+2025-02-13 21:27:43,595 INFO    MainThread:6012 [wandb_init.py:init():926] communicating run to backend with 90.0 second timeout
+2025-02-13 21:27:44,140 INFO    MainThread:6012 [wandb_init.py:init():984] starting run threads in backend
+2025-02-13 21:27:44,530 INFO    MainThread:6012 [wandb_run.py:_console_start():2385] atexit reg
+2025-02-13 21:27:44,531 INFO    MainThread:6012 [wandb_run.py:_redirect():2235] redirect: wrap_raw
+2025-02-13 21:27:44,531 INFO    MainThread:6012 [wandb_run.py:_redirect():2300] Wrapping output streams.
+2025-02-13 21:27:44,531 INFO    MainThread:6012 [wandb_run.py:_redirect():2325] Redirects installed.
+2025-02-13 21:27:44,535 INFO    MainThread:6012 [wandb_init.py:init():1026] run started, returning control to user process
+2025-02-13 21:27:44,535 INFO    MainThread:6012 [wandb_watch.py:_watch():71] Watching
+2025-02-13 21:30:30,251 INFO    MainThread:6012 [wandb_run.py:_finish():2110] finishing run viratsrivastava-research/remma-wiki-training/o6o4vndg
+2025-02-13 21:30:30,252 INFO    MainThread:6012 [wandb_run.py:_atexit_cleanup():2350] got exitcode: 0
+2025-02-13 21:30:30,252 INFO    MainThread:6012 [wandb_run.py:_restore():2332] restore
+2025-02-13 21:30:30,252 INFO    MainThread:6012 [wandb_run.py:_restore():2338] restore done
+2025-02-13 21:30:33,459 INFO    MainThread:6012 [wandb_run.py:_footer_history_summary_info():3963] rendering history
+2025-02-13 21:30:33,459 INFO    MainThread:6012 [wandb_run.py:_footer_history_summary_info():3995] rendering summary
+2025-02-13 21:30:33,459 INFO    MainThread:6012 [wandb_run.py:_footer_sync_info():3924] logging synced files
