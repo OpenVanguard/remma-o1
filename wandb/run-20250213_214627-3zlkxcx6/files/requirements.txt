@@ -193,7 +193,7 @@ Send2Trash==1.8.3
 sentencepiece==0.2.0
 sentry-sdk==2.20.0
 setproctitle==1.3.4
-setuptools==65.5.0
+setuptools==70.0.0
 shellingham==1.5.4
 shortuuid==1.0.13
 shtab==1.7.1
