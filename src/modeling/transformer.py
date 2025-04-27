@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import math
+
 # Self-Attention mechanism
 class SelfAttention(nn.Module):
     def __init__(self, embed_size, num_heads):
